@@ -1,4 +1,16 @@
-# Django Deployment for Codefellows
+# Django Deployment of imager app
 
 This repository contains ansible roles and playbooks which implement a basic
-deployment of Django to an AWS ec2 instance.
+deployment of Django imager app to an AWS ec2 instance.
+
+Use this command to deploy imager app:
+
+```bash
+$ansible-playbook -i plugins/inventory deploy_django.yml
+```
+
+To create an inventory of all instances:
+
+```bash
+$python ./plugins/inventory/ec2.py
+```
