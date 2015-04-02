@@ -14,13 +14,13 @@
     - git
 
 - name: Clone Django Repository
-  git: repo=https://github.com/cewing/djangoblog_uwpce.git dest={{ django_home }} force=yes
+  git: repo=https://github.com/henry808/django-imager.git dest={{ django_home }} force=yes version=ansible
 
 - name: Install Python Dependencies
   sudo: yes
   pip:
     state: present
-    requirements: "{{ django_home }}/requirements.txt"
+    requirements: "{{ django_home }}/imager/requirements.txt"
 
 - name: Get DB Hostvars
   set_fact:
@@ -36,16 +36,18 @@
 
 - name: Run Migrations
   environment:
+    DJANGO_CONFIGURATION: Prod
     DATABASE_URL: "{{ db_url }}"
   django_manage:
-    app_path: "{{ django_home }}"
-    settings: mysite.production
+    app_path: "{{ django_home }}/imager"
+    settings: imager.settings
     command: migrate
 
 - name: Collect Static Files
   environment:
+    DJANGO_CONFIGURATION: Prod
     DATABASE_URL: "{{ db_url }}"
   django_manage:
-    app_path: "{{ django_home }}"
-    settings: mysite.production
+    app_path: "{{ django_home }}/imager"
+    settings: imager.settings
     command: collectstatic
