@@ -9,9 +9,11 @@
     - python-pip
     - postgresql-client
     - libpq-dev
-    - python-pip
     - python-psycopg2
     - git
+    - libjpeg62
+    - libjpeg62-dev 
+    - zlib1g-dev
 
 - name: Clone Django Repository
   git: repo=https://github.com/henry808/django-imager.git dest={{ django_home }} force=yes version=ansible
@@ -34,6 +36,7 @@
   set_fact: 
     db_url: "{{ db_host.ec2_engine }}://{{ db_host.ec2_master_username }}:{{ db_password }}@{{ db_host.ec2__address }}:{{ db_host.ec2__port }}/{{ db_host.ec2_DBName }}"
 
+
 - name: Run Migrations
   environment:
     DJANGO_CONFIGURATION: Prod
@@ -42,6 +45,7 @@
     app_path: "{{ django_home }}/imager"
     settings: imager.settings
     command: migrate
+
 
 - name: Collect Static Files
   environment:
