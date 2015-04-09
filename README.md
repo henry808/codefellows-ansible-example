@@ -14,3 +14,10 @@ To create an inventory of all instances:
 ```bash
 $python ./plugins/inventory/ec2.py
 ```
+
+To set ssh key:
+
+```bash
+$ ssh-agent bash
+$ ssh-add ~/.ssh/pk-aws.pem
+```
